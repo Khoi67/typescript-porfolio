@@ -264,12 +264,12 @@ input[type="button"]{
 
 @font-face {
   font-family: 'xcon';
-  src: url('font/xcon8158.eot?4965248');
-  src: url('font/xcon8158.eot?4965248#iefix') format('embedded-opentype'),
-       url('font/xcon8158.woff2?4965248') format('woff2'),
-       url('font/xcon8158.woff?4965248') format('woff'),
-       url('font/xcon8158.ttf?4965248') format('truetype'),
-       url('font/xcon8158.svg?4965248#xcon') format('svg');
+  src: url('./font/xcon8158.eot?4965248');
+  src: url('./font/xcon8158.eot?4965248#iefix') format('embedded-opentype'),
+       url('./font/xcon8158.woff2?4965248') format('woff2'),
+       url('./font/xcon8158.woff?4965248') format('woff'),
+       url('./font/xcon8158.ttf?4965248') format('truetype'),
+       url('./font/xcon8158.svg?4965248#xcon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -279,7 +279,7 @@ input[type="button"]{
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'xcon';
-    src: url('../font/xcon.svg?4965248#xcon') format('svg');
+    src: url('.././font/xcon.svg?4965248#xcon') format('svg');
   }
 }
 */
