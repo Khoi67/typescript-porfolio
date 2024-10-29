@@ -20,7 +20,7 @@ const HomeCV = () => {
                 </div>
                 <div className="name_holder">
                   <h3>
-                    Do <span>Nguyen Khoi</span>
+                    Do Nguyen<span> Khoi</span>
                   </h3>
                 </div>
                 <div className="text_typing">
@@ -28,13 +28,10 @@ const HomeCV = () => {
                     I'm a <span className="arlo_tm_animation_text_word"></span>
                     <TypeAnimation
                       sequence={[
-                        // Same substring at the start will only be typed out once, initially
-                        "Freelancer",
-                        2000, // wait 1s before replacing "Mice" with "Hamsters"
-                        "UI/UX Designer",
-                        2000,
                         "Web Developer",
-                        2000,
+                        3000,
+                        "IT Help Desk",
+                        2000
                       ]}
                       wrapper="span"
                       cursor={true}
