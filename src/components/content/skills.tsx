@@ -73,7 +73,7 @@ const Skill = () => {
                                 <div className="arlo_tm_mini_title_holder">
                                     <h4>Backend Skills</h4>
                                 </div>
-                                <li>Programming language: PHP, Javascript</li>
+                                <li>Programming languages: Javascript, PHP</li>
                                 <li>Framework: Express.JS</li>
                                 <li>Database: SQL(MySQL) & NoSQL(MongoDB)</li>
 

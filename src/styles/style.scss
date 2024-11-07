@@ -200,6 +200,12 @@ svg {
 	width: 15px;
 	height: 15px;
 }
+.icon {
+	svg {
+		width: unset;
+		height: unset;
+	}
+}
 img.svg {
 	width: 15px;
 	height: 15px;
