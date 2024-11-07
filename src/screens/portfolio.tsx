@@ -30,17 +30,11 @@ const Portfolio = () => {
         {/* <!-- CONTENT --> */}
         <div className="arlo_tm_content">
           {/* <!-- LEFTPART --> */}
-          <LeftPart
-            hideLeftPart={hideLeftPart}
-            setHideLeftPart={setHideLeftPart}
-          />
+          <LeftPart          />
           {/* <!-- /LEFTPART --> */}
 
           {/* <!-- RIGHTPART --> */}
-          <RightPart
-            hideLeftPart={hideLeftPart}
-            setHideLeftPart={setHideLeftPart}
-          />
+          <RightPart />
           {/* <!-- /RIGHTPART --> */}
 
           {/* <a className="arlo_tm_totop" href="#"></a>

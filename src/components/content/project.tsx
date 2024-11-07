@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { Button, Modal } from "antd";
+import { useState } from "react";
+import { Modal } from "antd";
 import { IoLogoReact } from "react-icons/io5";
 import { BsArrowRight, BsInstagram, BsTwitter } from "react-icons/bs";
 import { DiNodejsSmall } from "react-icons/di";
-import { AiFillFacebook } from "react-icons/ai";
 
 interface IProject {
   image: JSX.Element;
