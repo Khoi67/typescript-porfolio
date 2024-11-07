@@ -2,7 +2,22 @@ import logo from "@/assets/img/about/1.jpg";
 import background from "@/assets/img/about/550x640.jpg";
 import myCV from "@/assets/cv.pdf";
 import { TypeAnimation } from "react-type-animation";
+import { useRef, useEffect } from 'react';
+import Parallax from 'parallax-js';
+
 const About = () => {
+  const sceneEl = useRef(null);
+    useEffect(() => {
+        if (sceneEl && sceneEl.current) {
+            const parallaxInstance = new Parallax(sceneEl.current, {
+                relativeInput: true,
+                hoverOnly: true
+            })
+            parallaxInstance.enable();
+            return () => parallaxInstance.disable();
+        }
+    }, [])
+
   return (
     <>
       <div
@@ -24,11 +39,8 @@ const About = () => {
             <div className="arlo_tm_about_wrap">
               <div className="author_wrap">
                 <div className="leftbox">
-                  <div
-                    className="about_image_wrap parallax"
-                    data-relative-input="true"
-                  >
-                    <div className="image layer" data-depth="0.1">
+                <div ref={sceneEl} className="about_image_wrap parallax" data-relative-input="true">
+                <div className="image layer" data-depth="0.2">
                       <img src={background} alt="550x640" />
                       <div
                         className="inner"
@@ -36,7 +48,7 @@ const About = () => {
                         style={{ backgroundImage: `url(${logo})` }}
                       ></div>
                     </div>
-                    <div className="border layer" data-depth="0.2">
+                    <div className="border layer" data-depth="0.6">
                       <img src={background} alt="550x640" />
                       <div className="inner"></div>
                     </div>

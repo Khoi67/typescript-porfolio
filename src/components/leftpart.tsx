@@ -1,8 +1,13 @@
 import desktopLogo from "@/assets/img/logo/desktop-logo.png";
 import { useEffect, useState } from "react";
+import { isMobile } from "react-device-detect";
 import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
 
-const LeftPart = () => {
+interface IProps {
+  hideLeftPart: boolean;
+  setHideLeftPart: (value: boolean) => void;
+}
+const LeftPart = (props: IProps) => {
   const [activeTab, setActiveTab] = useState<string>("home");
   useEffect(() => {
     const { hash } = window.location;
@@ -31,7 +36,13 @@ const LeftPart = () => {
   };
   return (
     <>
-      <div className="arlo_tm_leftpart_wrap">
+      <div
+        className={
+          props.hideLeftPart === true
+            ? "arlo_tm_leftpart_wrap opened"
+            : "arlo_tm_leftpart_wrap "
+        }
+      >
         <div className="leftpart_inner">
           <div className="logo_wrap">
             <a href="#">
@@ -124,6 +135,26 @@ const LeftPart = () => {
               </ul>
             </div>
           </div>
+          {!isMobile && (
+            <a
+              className={
+                props.hideLeftPart ? "arlo_tm_resize opened" : "arlo_tm_resize"
+              }
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                props.setHideLeftPart(!props.hideLeftPart);
+              }} //toggle
+            >
+              <i
+                className={
+                  props.hideLeftPart
+                    ? "xcon-angle-left opened"
+                    : "xcon-angle-left"
+                }
+              ></i>
+            </a>
+          )}
         </div>
       </div>
     </>
