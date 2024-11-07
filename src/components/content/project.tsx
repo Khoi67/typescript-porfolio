@@ -1,83 +1,133 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
 import { IoLogoReact } from "react-icons/io5";
-import { BsArrowRight } from "react-icons/bs";
+import { BsArrowRight, BsInstagram, BsTwitter } from "react-icons/bs";
+import { DiNodejsSmall } from "react-icons/di";
+import { AiFillFacebook } from "react-icons/ai";
+
+interface IProject {
+  image: JSX.Element;
+  title: string;
+  shortDescription: string;
+  detail: {
+    description: string;
+    frontend: string;
+    backend: string;
+    member: number;
+    role: string;
+    demo: string;
+    github: string;
+  };
+}
 
 const Project = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [dataDetail, setDataDetail] = useState<IProject | null>(null);
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
-  const dataProjects = [
+  const dataProjects: IProject[] = [
     {
-      image: <IoLogoReact size={50} color={"#2bebfd"}/>,
-      title: "Website Clone Tiki",
+      image: <IoLogoReact size={50} color={"#2bebfd"} />,
+      title: "Tiki Clone",
       shortDescription:
-        "Web design is a similar process of creation, with the intention of presenting the content on electronic pages ...",
+        "Website thương mại điện tử hỗ trợ & quản lý mua bán sách",
       detail: {
-        description: "",
-        technology: "",
-        member: "",
-        role: "",
-        demo: "",
-        github: "",
+        description:
+          "(Self-learning) Xây dựng website thương mại điện tử clone Tiki", //miêu tả dự án làm gì
+        frontend: "React (Typescript), Redux Toolkit, Ant Design", //công nghệ sử dụng
+        backend: "Node.JS (Express), MongoDB", //công nghệ sử dụng
+        member: 1, // bao nhiêu members
+        role: "Developer", // vai trò trong dự án
+        demo: "", //link video,  link deploy
+        github: "", //link github,
       },
     },
     {
-      image: <IoLogoReact size={50} color={"#2bebfd"}/>,
-      title: "Website Clone Tiki",
+      image: <DiNodejsSmall size={50} color={"#00a80c"} />,
+      title: "Bookingcare Clone",
       shortDescription:
-        "Web design is a similar process of creation, with the intention of presenting the content on electronic pages ...",
+        "Website mạng xã hội giúp kết nối mọi người có cùng chung sở thích",
       detail: {
-        description: "",
-        technology: "",
-        member: "",
-        role: "",
-        demo: "",
-        github: "",
+        description:
+          "(Self-learning) Xây dựng mạng xã hội giúp kết nối mọi người", //miêu tả dự án làm gì
+        frontend: "React (Typescript), Redux Toolkit, Ant Design", //công nghệ sử dụng
+        backend: "Node.JS (Express), MongoDB", //công nghệ sử dụng
+        member: 1, // bao nhiêu members
+        role: "Developer", // vai trò trong dự án
+        demo: "", //link video,  link deploy
+        github: "", //link github,
       },
     },
     {
-      image: <IoLogoReact size={50} color={"#2bebfd"}/>,
-      title: "Website Clone Tiki",
+      image: <BsTwitter size={50} color={"#4096ff"} />,
+      title: "Twitter Clone",
       shortDescription:
-        "Web design is a similar process of creation, with the intention of presenting the content on electronic pages ...",
+        "Website mạng xã hội giúp kết nối mọi người có cùng chung sở thích",
       detail: {
-        description: "",
-        technology: "",
-        member: "",
-        role: "",
-        demo: "",
-        github: "",
+        description:
+          "(Self-learning) Xây dựng mạng xã hội giúp kết nối mọi người", //miêu tả dự án làm gì
+        frontend: "React (Typescript), Redux Toolkit, Ant Design", //công nghệ sử dụng
+        backend: "Node.JS (Express), MongoDB", //công nghệ sử dụng
+        member: 1, // bao nhiêu members
+        role: "Developer", // vai trò trong dự án
+        demo: "", //link video,  link deploy
+        github: "", //link github,
+      },
+    },
+    {
+      image: <BsInstagram size={50} color={"#e84a65"} />,
+      title: "Instagram Clone",
+      shortDescription:
+        "Website mạng xã hội giúp kết nối mọi người có cùng chung sở thích",
+      detail: {
+        description:
+          "(Self-learning) Xây dựng mạng xã hội giúp kết nối mọi người", //miêu tả dự án làm gì
+        frontend: "React (Typescript), Redux Toolkit, Ant Design", //công nghệ sử dụng
+        backend: "Node.JS (Express), MongoDB", //công nghệ sử dụng
+        member: 1, // bao nhiêu members
+        role: "Developer", // vai trò trong dự án
+        demo: "", //link video,  link deploy
+        github: "", //link github,
       },
     },
   ];
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setDataDetail(null);
+  };
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Open Modal
-      </Button>
       <Modal
-        title="Basic Modal"
+        title={
+          dataDetail && dataDetail.title ? `Dự án ${dataDetail.title}` : ""
+        }
         open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
+        onOk={() => handleCloseModal()}
+        onCancel={() => handleCloseModal()}
         footer={null}
         maskClosable={false}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        {dataDetail && (
+          <ul>
+            <li>Miêu tả: {dataDetail.detail.description}</li>
+            <li>Frontend: {dataDetail.detail.frontend}</li>
+            <li>Backend: {dataDetail.detail.backend}</li>
+            <li>Số lượng thành viên dự án: {dataDetail.detail.member}</li>
+            <li>Vai trò: {dataDetail.detail.role}</li>
+            <li>
+              Demo:
+              <a href={dataDetail.detail.demo} target="_blank">
+                {dataDetail.detail.demo}
+              </a>
+            </li>
+            <li>
+              Github:
+              <a href={dataDetail.detail.github} target="_blank">
+                {dataDetail.detail.github}
+              </a>
+            </li>
+          </ul>
+        )}
       </Modal>
       <div className="arlo_tm_section" id="project">
         <div className="arlo_tm_services_wrap">
@@ -90,24 +140,30 @@ const Project = () => {
               <ul>
                 {dataProjects.map((item, index) => {
                   return (
-                    <li>
-                      <div className="inner">
-                        <div className="icon">
-                          {item.image}
-                        </div>
+                    <li key={`${index}-project`}>
+                      <div
+                        className="inner"
+                        title="Xem chi tiết"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          setDataDetail(item);
+                          setIsModalOpen(true);
+                        }}
+                      >
+                        <div className="icon">{item.image}</div>
                         <div className="title_service">
                           <h3>{item.title}</h3>
                         </div>
                         <div className="text">
-                          <p>
-                            {item.shortDescription}
-                          </p>
+                          <p>{item.shortDescription}</p>
                         </div>
-                        <div className="view_detail" style={{ padding: "5px 0"}}>
-                          <span style={{ cursor: "pointer"}}>
+                        <div
+                          className="view_detail"
+                          style={{ padding: "5px 0" }}
+                        >
+                          <span style={{ cursor: "pointer" }}>
                             <BsArrowRight />
-                            &nbsp; 
-                            Xem chi tiết
+                            &nbsp; Xem chi tiết
                           </span>
                         </div>
                       </div>

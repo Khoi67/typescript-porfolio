@@ -24,7 +24,7 @@ const LeftPart = () => {
                     <a href="#project">Projects</a>
                   </li>
                   <li>
-                    <a href="#portfolio">Portfolio</a>
+                    <a href="#portfolio">Contact</a>
                   </li>
                 </ul>
               </div>
