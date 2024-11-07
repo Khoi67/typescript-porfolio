@@ -84,7 +84,7 @@ const Contact = () => {
         </div>
         <div className="arlo_tm_footer_wrap">
           <div className="container">
-            <p>&copy; Copyright 2019. All Rights are Reserved.</p>
+            <p>&copy; Copyright by Arlo - Personal  Portfolio  Resume Template && HoiDanIT.</p>
           </div>
         </div>
       </div>

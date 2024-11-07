@@ -93,7 +93,7 @@ const About = () => {
                       <li>
                         <span>
                           <label>Facebook:</label>{" "}
-                          <a href="https://www.facebook.com/khoi.donguyen.792">Nguyên Khôi</a>
+                          <a href="https://www.facebook.com/khoi.donguyen.792" target="_blank">Nguyên Khôi</a>
                         </span>
                       </li>
                     </ul>
