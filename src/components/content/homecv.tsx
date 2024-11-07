@@ -1,6 +1,12 @@
 import { TypeAnimation } from "react-type-animation";
 
 const HomeCV = () => {
+  const handleScrollToAbout = () => {
+    const section = document.querySelector("#about");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
   return (
     <>
       <div className="arlo_tm_section" id="home">
@@ -27,12 +33,7 @@ const HomeCV = () => {
                   <p>
                     I'm a <span className="arlo_tm_animation_text_word"></span>
                     <TypeAnimation
-                      sequence={[
-                        "Web Developer",
-                        3000,
-                        "IT Help Desk",
-                        2000
-                      ]}
+                      sequence={["Web Developer", 3000, "IT Help Desk", 2000]}
                       wrapper="span"
                       cursor={true}
                       //   style={{ fontSize: "2em", display: "inline-block" }}
@@ -46,7 +47,13 @@ const HomeCV = () => {
               </div>
             </div>
             <div className="arlo_tm_arrow_wrap bounce anchor">
-              <a href="#about">
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleScrollToAbout();
+                }}
+              >
                 <i className="xcon-angle-double-down"></i>
               </a>
             </div>

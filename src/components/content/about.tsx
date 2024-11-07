@@ -1,16 +1,25 @@
-import logo from "@/assets/img/about/1.jpg"
-import background from "@/assets/img/about/550x640.jpg"
-import myCV from "@/assets/cv.pdf"
+import logo from "@/assets/img/about/1.jpg";
+import background from "@/assets/img/about/550x640.jpg";
+import myCV from "@/assets/cv.pdf";
 import { TypeAnimation } from "react-type-animation";
 const About = () => {
   return (
     <>
-      <div className="arlo_tm_section relative" id="about">
+      <div
+        className="arlo_tm_section relative"
+        id="about"
+        style={{ paddingTop: 100 }}
+      >
         <div className="arlo_tm_about_wrapper_all">
           <div className="container">
             <div className="arlo_tm_title_holder">
               <h3>About Me</h3>
-              <span><i>My maxim: "It's not a lack of intelligence holding you back; it's simply a matter of your hard work."</i> </span>
+              <span>
+                <i>
+                  My maxim: "It's not a lack of intelligence holding you back;
+                  it's simply a matter of your hard work."
+                </i>{" "}
+              </span>
             </div>
             <div className="arlo_tm_about_wrap">
               <div className="author_wrap">
@@ -24,6 +33,7 @@ const About = () => {
                       <div
                         className="inner"
                         data-img-url={logo}
+                        style={{ backgroundImage: `url(${logo})` }}
                       ></div>
                     </div>
                     <div className="border layer" data-depth="0.2">
@@ -37,27 +47,34 @@ const About = () => {
                     <h4>
                       I'm Khoi and{" "}
                       <TypeAnimation
-                      sequence={[
-                        // Same substring at the start will only be typed out once, initially
-                        "Web Developer",
-                        3000,
-                        "IT Help Desk",
-                        2000, 
-                      ]}
-                      wrapper="span"
-                      cursor={true}
-                      //   style={{ fontSize: "2em", display: "inline-block" }}
-                      repeat={Infinity}
-                      placeholder={undefined}
-                      onPointerEnterCapture={undefined}
-                      onPointerLeaveCapture={undefined}
-                    />
+                        sequence={[
+                          // Same substring at the start will only be typed out once, initially
+                          "Web Developer",
+                          3000,
+                          "IT Help Desk",
+                          2000,
+                        ]}
+                        wrapper="span"
+                        cursor={true}
+                        //   style={{ fontSize: "2em", display: "inline-block" }}
+                        repeat={Infinity}
+                        placeholder={undefined}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
+                      />
                     </h4>
                   </div>
                   <div className="definition">
                     <p>
-                      Hi! My name is <strong>Do Nguyen Khoi</strong>, a passionate and dedicated Web Developer. <br /> I have a solid foundation in web development and a strong commitment to delivering high-quality work. I am eager to bring my skills to real-world projects, and I’m driven by the desire to learn, grow, and create impactful solutions. <br /> I believe in the power of collaboration and am excited to contribute my abilities to meaningful projects that achieve your goals.
-
+                      Hi! My name is <strong>Do Nguyen Khoi</strong>, a
+                      passionate and dedicated Web Developer. <br /> I have a
+                      solid foundation in web development and a strong
+                      commitment to delivering high-quality work. I am eager to
+                      bring my skills to real-world projects, and I’m driven by
+                      the desire to learn, grow, and create impactful solutions.{" "}
+                      <br /> I believe in the power of collaboration and am
+                      excited to contribute my abilities to meaningful projects
+                      that achieve your goals.
                     </p>
                   </div>
                   <div className="about_short_contact_wrap">
@@ -79,21 +96,27 @@ const About = () => {
                       </li>
                       <li>
                         <span>
-                          <label>Major:</label> Computer Networks and Data Communication
+                          <label>Major:</label> Computer Networks and Data
+                          Communication
                         </span>
                       </li>
                       <li>
                         <span>
                           <label>Mail:</label>{" "}
                           <a href="mailto:example@gmail.com">
-                            khoi672001&#64;gmail.com 
+                            khoi672001&#64;gmail.com
                           </a>
                         </span>
                       </li>
                       <li>
                         <span>
                           <label>Facebook:</label>{" "}
-                          <a href="https://www.facebook.com/khoi.donguyen.792" target="_blank">Nguyên Khôi</a>
+                          <a
+                            href="https://www.facebook.com/khoi.donguyen.792"
+                            target="_blank"
+                          >
+                            Nguyên Khôi
+                          </a>
                         </span>
                       </li>
                     </ul>
@@ -105,7 +128,6 @@ const About = () => {
                           <span>Download CV</span>
                         </a>
                       </li>
-                      
                     </ul>
                   </div>
                 </div>
