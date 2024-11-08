@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Modal } from "antd";
 import { IoLogoReact } from "react-icons/io5";
-import { BsArrowRight, BsInstagram, BsTwitter } from "react-icons/bs";
-import { DiNodejsSmall } from "react-icons/di";
+import { BsArrowRight} from "react-icons/bs";
+import { FaWpforms, FaTrello } from "react-icons/fa";
+import { CiViewList } from "react-icons/ci";
+import { RiMovieFill } from "react-icons/ri";
 
 interface IProject {
   image: JSX.Element;
@@ -25,67 +27,67 @@ const Project = () => {
 
   const dataProjects: IProject[] = [
     {
-      image: <IoLogoReact size={50} color={"#2bebfd"} />,
-      title: "Tiki Clone",
+      image: <FaWpforms size={50} color={"#2bebfd"} />,
+      title: "Student Form",
       shortDescription:
-        "Website thương mại điện tử hỗ trợ & quản lý mua bán sách",
+        "Basic form for students to add, delete your information and search it by name.",
       detail: {
         description:
-          "(Self-learning) Xây dựng website thương mại điện tử clone Tiki", //miêu tả dự án làm gì
-        frontend: "React (Typescript), Redux Toolkit, Ant Design", //công nghệ sử dụng
-        backend: "Node.JS (Express), MongoDB", //công nghệ sử dụng
-        member: 1, // bao nhiêu members
-        role: "Developer", // vai trò trong dự án
-        demo: "", //link video,  link deploy
-        github: "", //link github,
+          "(Self-learning) Basic form for students to add, delete and search by name.", 
+        frontend: "HTML, CSS, Bootstrap, ReactJS (Redux)", 
+        backend: "", 
+        member: 1, 
+        role: "Developer", 
+        demo: "https://meipaly-q2eznibpy-khoi67.vercel.app/", 
+        github: "https://github.com/Khoi67/react-form.git",
       },
     },
     {
-      image: <DiNodejsSmall size={50} color={"#00a80c"} />,
-      title: "Bookingcare Clone",
+      image: <CiViewList size={50} color={"#2bebfd"} />,
+      title: "To-do List",
       shortDescription:
-        "Website mạng xã hội giúp kết nối mọi người có cùng chung sở thích",
+        "Website that you can add, edit, delete tasks and change the status, your theme of tasks.",
       detail: {
         description:
-          "(Self-learning) Xây dựng mạng xã hội giúp kết nối mọi người", //miêu tả dự án làm gì
-        frontend: "React (Typescript), Redux Toolkit, Ant Design", //công nghệ sử dụng
-        backend: "Node.JS (Express), MongoDB", //công nghệ sử dụng
-        member: 1, // bao nhiêu members
-        role: "Developer", // vai trò trong dự án
-        demo: "", //link video,  link deploy
-        github: "", //link github,
+          "(Self-learning) Website that you can add, edit, delete tasks and change the status, your theme of tasks.",
+        frontend: "HTML, CSS(JSS), Bootstrap, ReactJS",
+        backend: "",
+        member: 1,
+        role: "Developer",
+        demo: "https://to-do-list-gdywwv9t6-khoi67.vercel.app/",
+        github: "https://github.com/Khoi67/ToDoList.git",
       },
     },
     {
-      image: <BsTwitter size={50} color={"#4096ff"} />,
-      title: "Twitter Clone",
+      image: <RiMovieFill size={50} color={"#2bebfd"} />,
+      title: "Movie Website",
       shortDescription:
-        "Website mạng xã hội giúp kết nối mọi người có cùng chung sở thích",
+        "The client can choose or book a film and the ADMIN can manage the film.",
       detail: {
         description:
-          "(Self-learning) Xây dựng mạng xã hội giúp kết nối mọi người", //miêu tả dự án làm gì
-        frontend: "React (Typescript), Redux Toolkit, Ant Design", //công nghệ sử dụng
-        backend: "Node.JS (Express), MongoDB", //công nghệ sử dụng
-        member: 1, // bao nhiêu members
-        role: "Developer", // vai trò trong dự án
-        demo: "", //link video,  link deploy
-        github: "", //link github,
+          "The client can choose or book a film when they log in, for the ADMIN they manage, post, or check the film.",
+        frontend: "HTML, CSS, Bootstrap, ReactJS",
+        backend: "Available API",
+        member: 2,
+        role: "Developer",
+        demo: "https://youtu.be/lD-jBI1cXWw?si=i9W0SqoUtFx-lZwe",
+        github: "https://github.com/Khoi67/project-capstone-movie.git",
       },
     },
     {
-      image: <BsInstagram size={50} color={"#e84a65"} />,
-      title: "Instagram Clone",
+      image: <FaTrello size={50} color={"#2bebfd"} />,
+      title: "Trello Clone",
       shortDescription:
-        "Website mạng xã hội giúp kết nối mọi người có cùng chung sở thích",
+        "A basic clone website like Trello.com which is a flexible work management tool.",
       detail: {
         description:
-          "(Self-learning) Xây dựng mạng xã hội giúp kết nối mọi người", //miêu tả dự án làm gì
-        frontend: "React (Typescript), Redux Toolkit, Ant Design", //công nghệ sử dụng
-        backend: "Node.JS (Express), MongoDB", //công nghệ sử dụng
-        member: 1, // bao nhiêu members
-        role: "Developer", // vai trò trong dự án
-        demo: "", //link video,  link deploy
-        github: "", //link github,
+          "(Self-learning) A basic clone website like Trello.com which is a flexible work management tool where people can plan, collaborate on projects, organize workflows, and track progress in an intuitive, efficient, and rewarding way", 
+        frontend: "React (Typescript), Redux Toolkit, Ant Design", 
+        backend: "Node.JS (Express), MongoDB",
+        member: 1,
+        role: "Developer",
+        demo: "https://youtu.be/vxIHxNnksQA",
+        github: "https://github.com/Khoi67/trello-web.git",
       },
     },
   ];
@@ -108,19 +110,19 @@ const Project = () => {
       >
         {dataDetail && (
           <ul>
-            <li>Miêu tả: {dataDetail.detail.description}</li>
+            <li>Description: {dataDetail.detail.description}</li>
             <li>Frontend: {dataDetail.detail.frontend}</li>
             <li>Backend: {dataDetail.detail.backend}</li>
-            <li>Số lượng thành viên dự án: {dataDetail.detail.member}</li>
-            <li>Vai trò: {dataDetail.detail.role}</li>
+            <li>Member: {dataDetail.detail.member}</li>
+            <li>Role: {dataDetail.detail.role}</li>
             <li>
-              Demo:
+              Demo:&nbsp;
               <a href={dataDetail.detail.demo} target="_blank">
                 {dataDetail.detail.demo}
               </a>
             </li>
             <li>
-              Github:
+              Github:&nbsp;
               <a href={dataDetail.detail.github} target="_blank">
                 {dataDetail.detail.github}
               </a>
