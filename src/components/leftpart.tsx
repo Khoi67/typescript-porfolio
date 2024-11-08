@@ -1,7 +1,7 @@
-import desktopLogo from "@/assets/img/logo/desktop-logo.png";
 import { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
 import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
+import { SiApachehadoop } from "react-icons/si";
 
 interface IProps {
   hideLeftPart: boolean;
@@ -46,7 +46,7 @@ const LeftPart = (props: IProps) => {
         <div className="leftpart_inner">
           <div className="logo_wrap">
             <a href="#">
-              <img src={desktopLogo} alt="desktop-logo" />
+              <SiApachehadoop style={{ width: "100px", height: "100px", color: "white" }}/>
             </a>
           </div>
           <div className="menu_list_wrap">

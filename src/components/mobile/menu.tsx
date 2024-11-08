@@ -1,4 +1,4 @@
-import imgMobile from "@/assets/img/logo/mobile_logo.png";
+import { SiApachehadoop } from "react-icons/si";
 import { useState } from "react";
 
 const MobileMenu = () => {
@@ -29,7 +29,7 @@ const MobileMenu = () => {
         <div className="main_wrap">
           <div className="logo">
             <a href="#">
-              <img src={imgMobile} alt="mobile_logo" />
+              <SiApachehadoop style={{ width: "40px", height: "40px", color: "white" }}/>
             </a>
           </div>
           <div className="arlo_tm_trigger ">

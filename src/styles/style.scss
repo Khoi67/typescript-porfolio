@@ -2843,9 +2843,10 @@ img.svg {
 					font-family: $font-family_2;
 					font-weight: 600;
 					font-size: 19px;
-				}
-				&.active {
-					color: $color_3;
+					
+					&.active {
+						color: $color_3;
+					}
 				}
 			}
 		}
