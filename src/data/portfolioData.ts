@@ -276,7 +276,16 @@ export const portfolioData: PortfolioConfig = {
     publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "",
   },
 
-  // 9. FOOTER
+  // 9. CẤU HÌNH CHỐNG SPAM (Zero-Friction Protection)
+  antiSpam: {
+    cooldownSeconds: 60,
+    maxPerHour: 3,
+    minMessageLength: 10,
+    maxMessageLength: 1000,
+    minSubmitTimeSeconds: 2.5,
+  },
+
+  // 10. FOOTER
   footer: {
     copyright: "© Copyright by Do Nguyen Khoi - Test Engineer Portfolio.",
   },

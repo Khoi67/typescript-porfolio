@@ -3,7 +3,8 @@ import { message } from "antd";
 import { portfolioData } from "@/data/portfolioData";
 import { ContactFormData } from "@/types/portfolio";
 import { sendContactEmail } from "@/services/emailService";
-import { RiSendPlaneFill } from "react-icons/ri";
+import { useAntiSpam } from "@/hooks/useAntiSpam";
+import { RiSendPlaneFill, RiTimeLine } from "react-icons/ri";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -18,6 +19,16 @@ const Contact = () => {
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
+  const {
+    honeypot,
+    setHoneypot,
+    honeypotRef,
+    remainingCooldown,
+    validateSubmission,
+    recordSuccessfulSubmission,
+    isCooldownActive,
+  } = useAntiSpam();
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -31,7 +42,7 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Client-side validation
+    // 1. Kiểm tra tính đầy đủ của trường cơ bản
     if (!formData.name.trim()) {
       message.warning("Vui lòng nhập họ và tên của bạn!");
       return;
@@ -52,6 +63,13 @@ const Contact = () => {
       return;
     }
 
+    // 2. Kiểm tra chống spam đa tầng (Honeypot, Cooldown, Rate Limit, Nội dung, Trùng lặp)
+    const spamCheck = validateSubmission(formData.message);
+    if (!spamCheck.isValid) {
+      message.warning(spamCheck.reason || "Yêu cầu gửi tin nhắn không hợp lệ!");
+      return;
+    }
+
     setIsSubmitting(true);
     const hideLoading = message.loading("Đang gửi tin nhắn của bạn...", 0);
 
@@ -61,6 +79,8 @@ const Contact = () => {
 
       if (response.success) {
         message.success(response.message, 5);
+        // Ghi nhận submit thành công để kích hoạt cooldown và cập nhật lịch sử rate limit
+        recordSuccessfulSubmission(formData.message);
         // Reset form
         setFormData({
           name: "",
@@ -153,6 +173,34 @@ const Contact = () => {
                     id="contact_form"
                     onSubmit={handleSubmit}
                   >
+                    {/* Bẫy Bot (Honeypot) - Ẩn hoàn toàn với người dùng thực, bot quét tự động sẽ điền */}
+                    <div
+                      style={{
+                        opacity: 0,
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        height: 0,
+                        width: 0,
+                        zIndex: -1,
+                        overflow: "hidden",
+                        pointerEvents: "none",
+                      }}
+                      aria-hidden="true"
+                    >
+                      <label htmlFor="website_url">Do not fill this field</label>
+                      <input
+                        id="website_url"
+                        name="website_url"
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        defaultValue=""
+                        ref={honeypotRef}
+                        onChange={(e) => setHoneypot(e.target.value)}
+                      />
+                    </div>
+
                     <div className="wrap">
                       <input
                         id="name"
@@ -186,11 +234,12 @@ const Contact = () => {
                     <div style={{ marginTop: 28, textAlign: "left" }}>
                       <button
                         type="submit"
-                        disabled={isSubmitting}
+                        disabled={isSubmitting || isCooldownActive}
                         style={{
-                          background: isSubmitting
-                            ? "#64748b"
-                            : "linear-gradient(135deg, #E3872D 0%, #c46a16 100%)",
+                          background:
+                            isSubmitting || isCooldownActive
+                              ? "#94a3b8"
+                              : "linear-gradient(135deg, #E3872D 0%, #c46a16 100%)",
                           color: "#ffffff",
                           border: "none",
                           borderRadius: "30px",
@@ -198,10 +247,14 @@ const Contact = () => {
                           fontSize: "15px",
                           fontWeight: 700,
                           letterSpacing: "0.5px",
-                          cursor: isSubmitting ? "not-allowed" : "pointer",
-                          boxShadow: isSubmitting
-                            ? "none"
-                            : "0 6px 20px rgba(227, 135, 45, 0.45)",
+                          cursor:
+                            isSubmitting || isCooldownActive
+                              ? "not-allowed"
+                              : "pointer",
+                          boxShadow:
+                            isSubmitting || isCooldownActive
+                              ? "none"
+                              : "0 6px 20px rgba(227, 135, 45, 0.45)",
                           display: "inline-flex",
                           alignItems: "center",
                           justifyContent: "center",
@@ -209,14 +262,14 @@ const Contact = () => {
                           transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                         }}
                         onMouseEnter={(e) => {
-                          if (!isSubmitting) {
+                          if (!isSubmitting && !isCooldownActive) {
                             e.currentTarget.style.transform = "translateY(-3px)";
                             e.currentTarget.style.boxShadow =
                               "0 10px 28px rgba(227, 135, 45, 0.65)";
                           }
                         }}
                         onMouseLeave={(e) => {
-                          if (!isSubmitting) {
+                          if (!isSubmitting && !isCooldownActive) {
                             e.currentTarget.style.transform = "translateY(0)";
                             e.currentTarget.style.boxShadow =
                               "0 6px 20px rgba(227, 135, 45, 0.45)";
@@ -229,6 +282,11 @@ const Contact = () => {
                               Sending Message...
                             </span>
                           </>
+                        ) : isCooldownActive ? (
+                          <>
+                            <span>Gửi lại sau ({remainingCooldown}s)</span>
+                            <RiTimeLine size={18} />
+                          </>
                         ) : (
                           <>
                             <span>Send Message</span>
@@ -236,6 +294,19 @@ const Contact = () => {
                           </>
                         )}
                       </button>
+
+                      {isCooldownActive && (
+                        <p
+                          style={{
+                            marginTop: 10,
+                            fontSize: "13px",
+                            color: "#64748b",
+                            fontStyle: "italic",
+                          }}
+                        >
+                          * Vui lòng chờ {remainingCooldown}s trước khi gửi tin nhắn tiếp theo để tránh spam.
+                        </p>
+                      )}
                     </div>
                   </form>
                 </div>

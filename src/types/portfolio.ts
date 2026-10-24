@@ -106,6 +106,14 @@ export interface ContactFormData {
   message: string;
 }
 
+export interface AntiSpamConfig {
+  cooldownSeconds: number;
+  maxPerHour: number;
+  minMessageLength: number;
+  maxMessageLength: number;
+  minSubmitTimeSeconds: number;
+}
+
 export interface PortfolioConfig {
   personalInfo: PersonalInfo;
   navigation: NavigationItem[];
@@ -115,6 +123,7 @@ export interface PortfolioConfig {
   projects: ProjectItem[];
   contact: ContactInfo;
   emailjs?: EmailJSConfig;
+  antiSpam?: AntiSpamConfig;
   footer: {
     copyright: string;
   };
