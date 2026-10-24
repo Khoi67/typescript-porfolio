@@ -1,39 +1,37 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { isMobile } from "react-device-detect";
-import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
 import { SiApachehadoop } from "react-icons/si";
+import { portfolioData } from "@/data/portfolioData";
+import { IconRenderer } from "@/components/common/IconRenderer";
+import { useScrollSpy } from "@/hooks/useScrollSpy";
 
 interface IProps {
   hideLeftPart: boolean;
   setHideLeftPart: (value: boolean) => void;
 }
+
 const LeftPart = (props: IProps) => {
-  const [activeTab, setActiveTab] = useState<string>("home");
-  useEffect(() => {
-    const { hash } = window.location;
-    if (hash) {
-      const tab = hash.replace("#", "");
-      setActiveTab(tab);
-      const section = document.querySelector(`${hash}`);
-      if (section) {
-        section.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }
-  }, []);
+  const { navigation, socialLinks } = portfolioData;
+  const sectionIds = navigation.map((item) => item.id);
+  const [activeSection, setActiveSection] = useScrollSpy(sectionIds, 200);
+
   const handleClickTab = (
     tab: string,
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
     event.preventDefault();
-    setActiveTab(tab);
+    setActiveSection(tab);
     const section = document.querySelector(`#${tab}`);
     if (section) {
       section.scrollIntoView({ behavior: "smooth", block: "start" });
       setTimeout(() => {
-        window.location.hash = tab;
-      }, 1000);
+        window.history.replaceState(null, "", `#${tab}`);
+      }, 500);
     }
   };
+
+
+
   return (
     <>
       <div
@@ -45,93 +43,42 @@ const LeftPart = (props: IProps) => {
       >
         <div className="leftpart_inner">
           <div className="logo_wrap">
-            <a href="#">
-              <SiApachehadoop style={{ width: "100px", height: "100px", color: "white" }}/>
+            <a href="#home">
+              <SiApachehadoop
+                style={{ width: "100px", height: "100px", color: "white" }}
+              />
             </a>
           </div>
           <div className="menu_list_wrap">
             <ul className="anchor_nav">
-              <li>
-                <a
-                  href="#home"
-                  className={activeTab === "home" ? "active" : ""}
-                  onClick={(
-                    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-                  ) => handleClickTab("home", event)}
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#about"
-                  className={activeTab === "about" ? "active" : ""}
-                  onClick={(
-                    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-                  ) => handleClickTab("about", event)}
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#skills"
-                  className={activeTab === "skills" ? "active" : ""}
-                  onClick={(
-                    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-                  ) => handleClickTab("skills", event)}
-                >
-                  Skills
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#project"
-                  className={activeTab === "project" ? "active" : ""}
-                  onClick={(
-                    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-                  ) => handleClickTab("project", event)}
-                >
-                  Projects
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#contact"
-                  className={activeTab === "contact" ? "active" : ""}
-                  onClick={(
-                    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-                  ) => handleClickTab("contact", event)}
-                >
-                  Contact
-                </a>
-              </li>
+              {navigation.map((navItem) => (
+                <li key={`nav-${navItem.id}`}>
+                  <a
+                    href={`#${navItem.id}`}
+                    className={activeSection === navItem.id ? "active" : ""}
+                    onClick={(event) => handleClickTab(navItem.id, event)}
+                  >
+                    {navItem.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="leftpart_bottom">
             <div className="social_wrap">
               <ul>
-                <li>
-                  <a
-                    href="https://www.facebook.com/khoi.donguyen.792"
-                    target="_blank"
-                  >
-                    <FaFacebook />
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.linkedin.com/in/nguy%C3%AAn-kh%C3%B4i-26032320b/"
-                    target="_blank"
-                  >
-                    <FaLinkedin />
-                  </a>
-                </li>
-                <li>
-                  <a href="https://github.com/Khoi67" target="_blank">
-                    <FaGithub />
-                  </a>
-                </li>
+                {socialLinks.map((item, idx) => (
+                  <li key={`social-${idx}`}>
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      title={item.title || item.platform}
+                    >
+                      <IconRenderer icon={item.icon} size={18} />
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -144,7 +91,8 @@ const LeftPart = (props: IProps) => {
               onClick={(e) => {
                 e.preventDefault();
                 props.setHideLeftPart(!props.hideLeftPart);
-              }} //toggle
+              }}
+              aria-label="Toggle Sidebar"
             >
               <i
                 className={
@@ -160,4 +108,5 @@ const LeftPart = (props: IProps) => {
     </>
   );
 };
+
 export default LeftPart;

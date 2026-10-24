@@ -1,55 +1,66 @@
-import logo from "@/assets/img/about/1.jpg";
-import background from "@/assets/img/about/550x640.jpg";
-import myCV from "@/assets/cv.pdf";
+import { useRef, useEffect } from "react";
+import Parallax from "parallax-js";
 import { TypeAnimation } from "react-type-animation";
-import { useRef, useEffect } from 'react';
-import Parallax from 'parallax-js';
+import { portfolioData } from "@/data/portfolioData";
 
 const About = () => {
-  const sceneEl = useRef(null);
-    useEffect(() => {
-        if (sceneEl && sceneEl.current) {
-            const parallaxInstance = new Parallax(sceneEl.current, {
-                relativeInput: true,
-                hoverOnly: true
-            })
-            parallaxInstance.enable();
-            return () => parallaxInstance.disable();
-        }
-    }, [])
+  const sceneEl = useRef<HTMLDivElement | null>(null);
+  const { personalInfo } = portfolioData;
+
+  useEffect(() => {
+    if (sceneEl && sceneEl.current) {
+      const parallaxInstance = new Parallax(sceneEl.current, {
+        relativeInput: true,
+        hoverOnly: true,
+      });
+      parallaxInstance.enable();
+      return () => parallaxInstance.disable();
+    }
+  }, []);
 
   return (
     <>
       <div
         className="arlo_tm_section relative"
         id="about"
-        style={{ paddingTop: 100 }}
+        style={{ paddingTop: 80 }}
       >
         <div className="arlo_tm_about_wrapper_all">
           <div className="container">
             <div className="arlo_tm_title_holder">
               <h3>About Me</h3>
-              <span>
-                <i>
-                  My maxim: "It's not a lack of intelligence holding you back;
-                  it's simply a matter of your hard work."
-                </i>{" "}
-              </span>
+              {personalInfo.quote && (
+                <span>
+                  <i>{personalInfo.quote}</i>
+                </span>
+              )}
             </div>
             <div className="arlo_tm_about_wrap">
               <div className="author_wrap">
                 <div className="leftbox">
-                <div ref={sceneEl} className="about_image_wrap parallax" data-relative-input="true">
-                <div className="image layer" data-depth="0.2">
-                      <img src={background} alt="550x640" />
+                  <div
+                    ref={sceneEl}
+                    className="about_image_wrap parallax"
+                    data-relative-input="true"
+                  >
+                    <div className="image layer" data-depth="0.2">
+                      <img
+                        src={personalInfo.backgroundUrl}
+                        alt="Profile Background"
+                      />
                       <div
                         className="inner"
-                        data-img-url={logo}
-                        style={{ backgroundImage: `url(${logo})` }}
+                        data-img-url={personalInfo.avatarUrl}
+                        style={{
+                          backgroundImage: `url(${personalInfo.avatarUrl})`,
+                        }}
                       ></div>
                     </div>
                     <div className="border layer" data-depth="0.6">
-                      <img src={background} alt="550x640" />
+                      <img
+                        src={personalInfo.backgroundUrl}
+                        alt="Profile Frame"
+                      />
                       <div className="inner"></div>
                     </div>
                   </div>
@@ -57,18 +68,11 @@ const About = () => {
                 <div className="rightbox">
                   <div className="arlo_tm_mini_title_holder">
                     <h4>
-                      I'm Khoi and{" "}
+                      I'm {personalInfo.firstName} and{" "}
                       <TypeAnimation
-                        sequence={[
-                          // Same substring at the start will only be typed out once, initially
-                          "Web Developer",
-                          3000,
-                          "IT Help Desk",
-                          2000,
-                        ]}
+                        sequence={personalInfo.typingSequence}
                         wrapper="span"
                         cursor={true}
-                        //   style={{ fontSize: "2em", display: "inline-block" }}
                         repeat={Infinity}
                         placeholder={undefined}
                         onPointerEnterCapture={undefined}
@@ -77,71 +81,49 @@ const About = () => {
                     </h4>
                   </div>
                   <div className="definition">
-                    <p>
-                      Hi! My name is <strong>Do Nguyen Khoi</strong>, a
-                      passionate and dedicated Web Developer. <br /> I have a
-                      solid foundation in web development and a strong
-                      commitment to delivering high-quality work. I am eager to
-                      bring my skills to real-world projects, and I’m driven by
-                      the desire to learn, grow, and create impactful solutions.{" "}
-                      <br /> I believe in the power of collaboration and am
-                      excited to contribute my abilities to meaningful projects
-                      that achieve your goals.
-                    </p>
+                    {personalInfo.bio.map((paragraph, idx) => (
+                      <p key={`bio-p-${idx}`} style={{ marginBottom: "10px" }}>
+                        {paragraph}
+                      </p>
+                    ))}
                   </div>
                   <div className="about_short_contact_wrap">
                     <ul>
-                      <li>
-                        <span>
-                          <label>Birthday:</label> 06.07.2001
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <label>Gender:</label> Male
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <label>Study:</label> Ton Duc Thang University
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <label>Major:</label> Computer Networks and Data
-                          Communication
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <label>Mail:</label>{" "}
-                          <a href="mailto:example@gmail.com">
-                            khoi672001&#64;gmail.com
-                          </a>
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <label>Facebook:</label>{" "}
-                          <a
-                            href="https://www.facebook.com/khoi.donguyen.792"
-                            target="_blank"
-                          >
-                            Nguyên Khôi
-                          </a>
-                        </span>
-                      </li>
+                      {personalInfo.attributes.map((attr, idx) => (
+                        <li key={`attr-${idx}`}>
+                          <span>
+                            <label>{attr.label}:</label>{" "}
+                            {attr.isLink ? (
+                              <a
+                                href={attr.href || attr.value}
+                                target={
+                                  attr.href?.startsWith("mailto")
+                                    ? "_self"
+                                    : "_blank"
+                                }
+                                rel="noreferrer"
+                              >
+                                {attr.value}
+                              </a>
+                            ) : (
+                              attr.value
+                            )}
+                          </span>
+                        </li>
+                      ))}
                     </ul>
                   </div>
-                  <div className="buttons_wrap">
-                    <ul>
-                      <li>
-                        <a href={myCV} download>
-                          <span>Download CV</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
+                  {personalInfo.cvFileUrl && (
+                    <div className="buttons_wrap">
+                      <ul>
+                        <li>
+                          <a href={personalInfo.cvFileUrl} download>
+                            <span>Download CV</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -151,4 +133,5 @@ const About = () => {
     </>
   );
 };
+
 export default About;

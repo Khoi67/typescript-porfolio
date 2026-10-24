@@ -1,124 +1,115 @@
 import ProgressBar from "@ramonak/react-progress-bar";
+import { portfolioData } from "@/data/portfolioData";
 
 const Skill = () => {
-    return (
-        <>
-            <div className="arlo_tm_section" id="skills">
-                <div className="arlo_tm_skills_wrap">
-                    <div className="container">
-                        <div className="inner_wrap">
-                            <div className="leftbox">
-                                <div className="arlo_tm_mini_title_holder">
-                                    <h4>Frontend Skills</h4>
-                                </div>
-                                <li>Framework/Library: Bootstrap, JQuery, React.JS, Antd, MUI</li>
-                            </div>
-                            <div className="rightbox">
-                                <div className="progress_bar_wrap_total">
-                                    <div className="arlo_tm_progress_wrap" data-size="small" data-round="c" data-strip="off">
-                                        <div className="arlo_tm_progress" data-value="95" data-color="#000">
-                                            <span>
-                                                <span className="label">HTML/CSS/JavaScript  </span>
-                                                <span className="number">95%</span>
-                                            </span>
-                                            <div className="arlo_tm_bar_bg">
-                                                <ProgressBar
-                                                    completed={95}
-                                                    bgColor={"#333"}
-                                                    height="8px"
-                                                    isLabelVisible={false}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="arlo_tm_progress" data-value="80" data-color="#000">
-                                            <span>
-                                                <span className="label">React.JS (Typescript)</span>
-                                                <span className="number">80%</span>
-                                            </span>
-                                            <div className="arlo_tm_bar_bg">
-                                                <ProgressBar
-                                                    completed={80}
-                                                    bgColor={"#333"}
-                                                    height="8px"
-                                                    isLabelVisible={false}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="arlo_tm_progress" data-value="85" data-color="#000">
-                                            <span>
-                                                <span className="label">Antd, Mui</span>
-                                                <span className="number">85%</span>
-                                            </span>
-                                            <div className="arlo_tm_bar_bg">
-                                                <ProgressBar
-                                                    completed={85}
-                                                    bgColor={"#333"}
-                                                    height="8px"
-                                                    isLabelVisible={false}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+  const { skillCategories } = portfolioData;
+
+  return (
+    <>
+      <div className="arlo_tm_section" id="skills" style={{ paddingTop: 80 }}>
+        <div className="container">
+          <div className="arlo_tm_title_holder">
+            <h3>Skills</h3>
+            <span>My technical and testing abilities</span>
+          </div>
+        </div>
+
+        <div
+          className="arlo_tm_skills_wrap"
+          style={{
+            paddingTop: 10,
+            paddingBottom: 60,
+            marginBottom: 0,
+            clear: "both",
+            float: "left",
+            width: "100%",
+            boxSizing: "border-box",
+          }}
+        >
+          <div className="container">
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "40px",
+                width: "100%",
+                boxSizing: "border-box",
+              }}
+            >
+              {skillCategories.map((category, catIndex) => (
+                <div
+                  className="inner_wrap"
+                  key={`skill-cat-${catIndex}`}
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    width: "100%",
+                    boxSizing: "border-box",
+                    paddingBottom:
+                      catIndex < skillCategories.length - 1 ? "30px" : "0",
+                    borderBottom:
+                      catIndex < skillCategories.length - 1
+                        ? "1px dashed #e2e8f0"
+                        : "none",
+                  }}
+                >
+                  <div className="leftbox">
+                    <div className="arlo_tm_mini_title_holder">
+                      <h4>{category.title}</h4>
                     </div>
-
-                </div>
-
-                <div className="arlo_tm_skills_wrap">
-                    <div className="container">
-                        <div className="inner_wrap">
-                            <div className="leftbox">
-                                <div className="arlo_tm_mini_title_holder">
-                                    <h4>Backend Skills</h4>
-                                </div>
-                                <li>Programming languages: Javascript, PHP</li>
-                                <li>Framework: Express.JS</li>
-                                <li>Database: SQL(MySQL) & NoSQL(MongoDB)</li>
-
+                    <ul style={{ paddingLeft: "20px", margin: "10px 0" }}>
+                      {category.descriptionPoints.map((desc, descIdx) => (
+                        <li
+                          key={`desc-${catIndex}-${descIdx}`}
+                          style={{ marginBottom: "6px", lineHeight: "1.6" }}
+                        >
+                          {desc}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="rightbox">
+                    <div className="progress_bar_wrap_total">
+                      <div
+                        className="arlo_tm_progress_wrap"
+                        data-size="small"
+                        data-round="c"
+                        data-strip="off"
+                      >
+                        {category.skills.map((skill, skillIdx) => (
+                          <div
+                            className="arlo_tm_progress"
+                            data-value={skill.percentage}
+                            data-color={skill.color || "#000"}
+                            key={`skill-bar-${catIndex}-${skillIdx}`}
+                          >
+                            <span>
+                              <span className="label">{skill.name}</span>
+                              <span className="number">
+                                {skill.percentage}%
+                              </span>
+                            </span>
+                            <div className="arlo_tm_bar_bg">
+                              <ProgressBar
+                                completed={skill.percentage}
+                                bgColor={skill.color || "#E3872D"}
+                                height="8px"
+                                isLabelVisible={false}
+                              />
                             </div>
-                            <div className="rightbox">
-                                <div className="progress_bar_wrap_total">
-                                    <div className="arlo_tm_progress_wrap" data-size="small" data-round="c" data-strip="off">
-                                        <div className="arlo_tm_progress" data-value="85" data-color="#000">
-                                            <span>
-                                                <span className="label">Express.JS</span>
-                                                <span className="number">85%</span>
-                                            </span>
-                                            <div className="arlo_tm_bar_bg">
-                                                <ProgressBar
-                                                    completed={85}
-                                                    bgColor={"#333"}
-                                                    height="8px"
-                                                    isLabelVisible={false}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="arlo_tm_progress" data-value="80" data-color="#000">
-                                            <span>
-                                                <span className="label">Database MongoDB</span>
-                                                <span className="number">80%</span>
-                                            </span>
-                                            <div className="arlo_tm_bar_bg">
-                                                <ProgressBar
-                                                    completed={85}
-                                                    bgColor={"#333"}
-                                                    height="8px"
-                                                    isLabelVisible={false}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-
+                  </div>
                 </div>
+              ))}
             </div>
-        </>
-    )
-}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default Skill;

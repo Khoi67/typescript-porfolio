@@ -398,8 +398,13 @@ img.svg {
 						}
 					}
 					&.active {
-                        color: $color_3;
-                    }
+						color: $color_3 !important;
+						font-weight: 700 !important;
+						&:before {
+							width: 35px !important;
+						}
+					}
+
 				}
 			}
 		}
@@ -720,7 +725,7 @@ img.svg {
 	height: auto;
 	clear: both;
 	float: left;
-	padding-bottom: 122px;
+	padding-bottom: 50px;
 	position: relative;
 	margin-top: -6px;
 	-webkit-box-sizing: border-box;
@@ -920,7 +925,7 @@ img.svg {
 	clear: both;
 	float: left;
 	text-align: left;
-	padding-bottom: 100px;
+	padding-bottom: 45px;
 	position: relative;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -948,7 +953,7 @@ img.svg {
 	}
 }
 .arlo_tm_title_holder.contact {
-	padding-bottom: 93px;
+	padding-bottom: 45px;
 }
 .arlo_tm_about_wrapper_all {
 	width: 100%;
@@ -2845,8 +2850,10 @@ img.svg {
 					font-size: 19px;
 					
 					&.active {
-						color: $color_3;
+						color: $color_3 !important;
+						font-weight: 700 !important;
 					}
+
 				}
 			}
 		}

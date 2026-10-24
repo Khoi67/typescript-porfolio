@@ -1,5 +1,6 @@
 import About from "./content/about";
 import Contact from "./content/contact";
+import Experience from "./content/experience";
 import HomeCV from "./content/homecv";
 import Project from "./content/project";
 import Skills from "./content/skills";
@@ -17,9 +18,14 @@ const RightPart = (props: IProps) => {
               <About />
               {/* <!-- /ABOUT --> */}
 
+              {/* <!-- EXPERIENCE --> */}
+              <Experience />
+              {/* <!-- /EXPERIENCE --> */}
+
               {/* <!-- SKILLS --> */}
               <Skills />
               {/* <!-- /SKILLS --> */}
+
 
               {/* <!-- SERVICES --> */}
               <Project />

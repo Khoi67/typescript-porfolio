@@ -1,137 +1,107 @@
 import { useState } from "react";
 import { Modal } from "antd";
-import { IoLogoReact } from "react-icons/io5";
-import { BsArrowRight} from "react-icons/bs";
-import { FaWpforms, FaTrello } from "react-icons/fa";
-import { CiViewList } from "react-icons/ci";
-import { RiMovieFill } from "react-icons/ri";
-
-interface IProject {
-  image: JSX.Element;
-  title: string;
-  shortDescription: string;
-  detail: {
-    description: string;
-    frontend: string;
-    backend: string;
-    member: number;
-    role: string;
-    demo: string;
-    github: string;
-  };
-}
+import { BsArrowRight } from "react-icons/bs";
+import { portfolioData } from "@/data/portfolioData";
+import { ProjectItem } from "@/types/portfolio";
+import { IconRenderer } from "@/components/common/IconRenderer";
 
 const Project = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [dataDetail, setDataDetail] = useState<IProject | null>(null);
+  const [dataDetail, setDataDetail] = useState<ProjectItem | null>(null);
 
-  const dataProjects: IProject[] = [
-    {
-      image: <FaWpforms size={50} color={"#2bebfd"} />,
-      title: "Student Form",
-      shortDescription:
-        "Basic form for students to add, delete your information and search it by name.",
-      detail: {
-        description:
-          "(Self-learning) Basic form for students to add, delete and search by name.", 
-        frontend: "HTML, CSS, Bootstrap, ReactJS (Redux)", 
-        backend: "", 
-        member: 1, 
-        role: "Developer", 
-        demo: "https://meipaly-q2eznibpy-khoi67.vercel.app/", 
-        github: "https://github.com/Khoi67/react-form.git",
-      },
-    },
-    {
-      image: <CiViewList size={50} color={"#2bebfd"} />,
-      title: "To-do List",
-      shortDescription:
-        "Website that you can add, edit, delete tasks and change the status, your theme of tasks.",
-      detail: {
-        description:
-          "(Self-learning) Website that you can add, edit, delete tasks and change the status, your theme of tasks.",
-        frontend: "HTML, CSS(JSS), Bootstrap, ReactJS",
-        backend: "",
-        member: 1,
-        role: "Developer",
-        demo: "https://to-do-list-gdywwv9t6-khoi67.vercel.app/",
-        github: "https://github.com/Khoi67/ToDoList.git",
-      },
-    },
-    {
-      image: <RiMovieFill size={50} color={"#2bebfd"} />,
-      title: "Movie Website",
-      shortDescription:
-        "The client can choose or book a film and the ADMIN can manage the film.",
-      detail: {
-        description:
-          "The client can choose or book a film when they log in, for the ADMIN they manage, post, or check the film.",
-        frontend: "HTML, CSS, Bootstrap, ReactJS",
-        backend: "Available API",
-        member: 2,
-        role: "Developer",
-        demo: "https://youtu.be/lD-jBI1cXWw?si=i9W0SqoUtFx-lZwe",
-        github: "https://github.com/Khoi67/project-capstone-movie.git",
-      },
-    },
-    {
-      image: <FaTrello size={50} color={"#2bebfd"} />,
-      title: "Trello Clone",
-      shortDescription:
-        "A basic clone website like Trello.com which is a flexible work management tool.",
-      detail: {
-        description:
-          "(Self-learning) A basic clone website like Trello.com which is a flexible work management tool where people can plan, collaborate on projects, organize workflows, and track progress in an intuitive, efficient, and rewarding way", 
-        frontend: "React (Typescript), Redux Toolkit, Ant Design", 
-        backend: "Node.JS (Express), MongoDB",
-        member: 1,
-        role: "Developer",
-        demo: "https://youtu.be/vxIHxNnksQA",
-        github: "https://github.com/Khoi67/trello-web.git",
-      },
-    },
-  ];
+  const { projects } = portfolioData;
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setDataDetail(null);
   };
+
   return (
     <>
       <Modal
-        title={
-          dataDetail && dataDetail.title ? `Dự án ${dataDetail.title}` : ""
-        }
+        title={dataDetail?.title ? `Dự án: ${dataDetail.title}` : "Chi tiết dự án"}
         open={isModalOpen}
-        onOk={() => handleCloseModal()}
-        onCancel={() => handleCloseModal()}
+        onOk={handleCloseModal}
+        onCancel={handleCloseModal}
         footer={null}
-        maskClosable={false}
+        maskClosable={true}
+        destroyOnClose={true}
       >
         {dataDetail && (
-          <ul>
-            <li>Description: {dataDetail.detail.description}</li>
-            <li>Frontend: {dataDetail.detail.frontend}</li>
-            <li>Backend: {dataDetail.detail.backend}</li>
-            <li>Member: {dataDetail.detail.member}</li>
-            <li>Role: {dataDetail.detail.role}</li>
-            <li>
-              Demo:&nbsp;
-              <a href={dataDetail.detail.demo} target="_blank">
-                {dataDetail.detail.demo}
-              </a>
-            </li>
-            <li>
-              Github:&nbsp;
-              <a href={dataDetail.detail.github} target="_blank">
-                {dataDetail.detail.github}
-              </a>
-            </li>
-          </ul>
+          <div style={{ lineHeight: "1.8", paddingTop: "8px" }}>
+            <p>
+              <strong>Mô tả:</strong> {dataDetail.detail.description}
+            </p>
+            {dataDetail.detail.frontend && (
+              <p>
+                <strong>Frontend:</strong> {dataDetail.detail.frontend}
+              </p>
+            )}
+            {dataDetail.detail.backend && (
+              <p>
+                <strong>Backend:</strong> {dataDetail.detail.backend}
+              </p>
+            )}
+            <p>
+              <strong>Số thành viên:</strong> {dataDetail.detail.member}
+            </p>
+            <p>
+              <strong>Vai trò:</strong> {dataDetail.detail.role}
+            </p>
+            {dataDetail.detail.demo && (
+              <p>
+                <strong>Demo:</strong>{" "}
+                <a
+                  href={dataDetail.detail.demo}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ color: "#E3872D", textDecoration: "underline" }}
+                >
+                  {dataDetail.detail.demo}
+                </a>
+              </p>
+            )}
+            {dataDetail.detail.github && (
+              <p>
+                <strong>Github:</strong>{" "}
+                <a
+                  href={dataDetail.detail.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ color: "#E3872D", textDecoration: "underline" }}
+                >
+                  {dataDetail.detail.github}
+                </a>
+              </p>
+            )}
+            {dataDetail.detail.tags && dataDetail.detail.tags.length > 0 && (
+              <p style={{ marginTop: "10px" }}>
+                <strong>Tags:</strong>{" "}
+                {dataDetail.detail.tags.map((tag, idx) => (
+                  <span
+                    key={`tag-${idx}`}
+                    style={{
+                      display: "inline-block",
+                      background: "#222",
+                      color: "#fff",
+                      padding: "2px 8px",
+                      borderRadius: "4px",
+                      fontSize: "12px",
+                      marginRight: "6px",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </p>
+            )}
+          </div>
         )}
       </Modal>
-      <div className="arlo_tm_section" id="project">
-        <div className="arlo_tm_services_wrap">
+
+      <div className="arlo_tm_section" id="project" style={{ paddingTop: 80 }}>
+        <div className="arlo_tm_services_wrap" style={{ marginBottom: 40 }}>
           <div className="container">
             <div className="arlo_tm_title_holder">
               <h3>Amazing Projects</h3>
@@ -139,9 +109,9 @@ const Project = () => {
             </div>
             <div className="list_wrap">
               <ul>
-                {dataProjects.map((item, index) => {
+                {projects.map((item) => {
                   return (
-                    <li key={`${index}-project`}>
+                    <li key={`project-${item.id}`}>
                       <div
                         className="inner"
                         title="Xem chi tiết"
@@ -151,7 +121,13 @@ const Project = () => {
                           setIsModalOpen(true);
                         }}
                       >
-                        <div className="icon">{item.image}</div>
+                        <div className="icon">
+                          <IconRenderer
+                            icon={item.icon}
+                            size={50}
+                            color={item.iconColor || "#E3872D"}
+                          />
+                        </div>
                         <div className="title_service">
                           <h3>{item.title}</h3>
                         </div>
@@ -179,4 +155,5 @@ const Project = () => {
     </>
   );
 };
+
 export default Project;
